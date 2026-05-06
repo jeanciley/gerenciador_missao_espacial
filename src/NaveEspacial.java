@@ -21,6 +21,10 @@ public class NaveEspacial extends EntidadeIdentificavel {
         return nome;
     }
 
+    public int getCapacidade() {
+        return capacidade;
+    }
+
     @Override
     public String toString() {
         return "---NAVE---" +
