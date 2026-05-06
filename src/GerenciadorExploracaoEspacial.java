@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -145,18 +144,17 @@ public class GerenciadorExploracaoEspacial {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("ID da Missão: ");
-        int idM = scanner.nextInt();
+        int idMissao = scanner.nextInt();
 
         System.out.print("ID do Astronauta: ");
-        int idA = scanner.nextInt();
+        int idAstronauta = scanner.nextInt();
         scanner.nextLine();
 
-        Missao m = buscarMissao(idM);
-        Astronauta a = buscarAstronauta(idA);
+        Missao missao = buscarMissao(idMissao);
+        Astronauta astronauta = buscarAstronauta(idAstronauta);
 
-        if (m != null && a != null) {
-            m.associarAstronauta(a);
-            System.out.println("Astronauta associado com sucesso!");
+        if (missao != null && astronauta != null) {
+            missao.associarAstronauta(astronauta);
         } else {
             System.out.println("Missão ou Astronauta não encontrado.");
         }
@@ -178,7 +176,6 @@ public class GerenciadorExploracaoEspacial {
 
         if (missao != null && nave != null) {
             missao.associarNave(nave);
-            System.out.println("Nave associada com sucesso!");
         } else {
             System.out.println("Missão ou Nave não encontrada.");
         }

@@ -9,7 +9,6 @@ public class Missao extends EntidadeIdentificavel {
     private String objetivo;
     private String dataLancamento;
     private String status;
-    private int capacidade;
 
     private NaveEspacial nave;
     private List<Astronauta> astronautas;
@@ -30,11 +29,37 @@ public class Missao extends EntidadeIdentificavel {
     }
 
     public void associarNave(NaveEspacial nave) {
+
+        if (this.nave != null) {
+            System.out.println("Essa missão já possui uma nave associada!");
+            return;
+        }
+
         this.nave = nave;
+        System.out.println("Nave associada com sucesso!");
     }
 
     public void associarAstronauta(Astronauta astronauta) {
+
+        if (nave == null) {
+            System.out.println("Associe uma nave antes de adicionar astronautas.");
+            return;
+        }
+
+        if (astronautas.size() >= nave.getCapacidade()) {
+            System.out.println("Capacidade máxima da nave atingida!");
+            return;
+        }
+
+        for (Astronauta ast : astronautas) {
+            if(ast.getId() == astronauta.getId()){
+                System.out.println("Esse astronauta já está associado a essa missão!");
+                return;
+            }
+        }
+
         astronautas.add(astronauta);
+        System.out.printf("%s\nAdicionado com sucesso!", astronauta);
     }
 
     public void atualizarStatus(String novoStatus) {
@@ -44,7 +69,7 @@ public class Missao extends EntidadeIdentificavel {
     @Override
     public String toString() {
 
-        String nomesAstronautas = "N/A";
+        String nomesAstronautas = null;
 
         if (!astronautas.isEmpty()) {
             nomesAstronautas = "";
@@ -60,6 +85,6 @@ public class Missao extends EntidadeIdentificavel {
                 "\nData: " + dataLancamento +
                 "\nStatus: " + status +
                 "\nNave: " + (nave != null ? nave.getNome() : "N/A") +
-                "\nAstronautas: " + nomesAstronautas;
+                "\nAstronautas: " + (nomesAstronautas != null ? nomesAstronautas : "N/A");
     }
 }
