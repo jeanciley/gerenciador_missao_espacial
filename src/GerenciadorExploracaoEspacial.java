@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -72,43 +73,15 @@ public class GerenciadorExploracaoEspacial {
             switch (opcao) {
 
                 case 1:
-                    System.out.print("Nome da Missão: ");
-                    String nomeMissao = scanner.nextLine();
-
-                    System.out.print("Objetivo da Missão: ");
-                    String objetivoMissao = scanner.nextLine();
-
-                    System.out.print("Data de Lançamento: ");
-                    String data = scanner.nextLine();
-
-                    System.out.print("Status: ");
-                    String status = scanner.nextLine();
-
-                    missoes.add(new Missao(nomeMissao, objetivoMissao, data, status));
+                    adicionarMissao();
                     break;
 
                 case 2:
-                    System.out.print("Nome da Nave: ");
-                    String nomeNave = scanner.nextLine();
-
-                    System.out.print("Tipo da Nave: ");
-                    String tipo = scanner.nextLine();
-
-                    System.out.print("Capacidade: ");
-                    int capacidade = scanner.nextInt();
-                    scanner.nextLine();
-
-                    naves.add(new NaveEspacial(nomeNave, tipo, capacidade));
+                    adicionarNaveEspacial();
                     break;
 
                 case 3:
-                    System.out.print("Nome do Astronauta: ");
-                    String nomeAst = scanner.nextLine();
-
-                    System.out.print("Especialidade: ");
-                    String esp = scanner.nextLine();
-
-                    astronautas.add(new Astronauta(nomeAst, esp));
+                    adicionarAstronauta();
                     break;
 
                 case 4:
@@ -130,64 +103,140 @@ public class GerenciadorExploracaoEspacial {
                     break;
 
                 case 7:
-                    System.out.print("ID da Missão: ");
-                    int idMissao = scanner.nextInt();
-
-                    System.out.print("ID da Nave: ");
-                    int idNave = scanner.nextInt();
-                    scanner.nextLine();
-
-                    Missao missao = buscarMissao(idMissao);
-                    NaveEspacial nave = buscarNave(idNave);
-
-                    if (missao != null && nave != null) {
-                        missao.associarNave(nave);
-                        System.out.println("Nave associada com sucesso!");
-                    } else {
-                        System.out.println("Missão ou Nave não encontrada.");
-                    }
+                    associarNaveAMissao();
                     break;
 
                 case 8:
-                    System.out.print("ID da Missão: ");
-                    int idM = scanner.nextInt();
-
-                    System.out.print("ID do Astronauta: ");
-                    int idA = scanner.nextInt();
-                    scanner.nextLine();
-
-                    Missao m = buscarMissao(idM);
-                    Astronauta a = buscarAstronauta(idA);
-
-                    if (m != null && a != null) {
-                        m.associarAstronauta(a);
-                        System.out.println("Astronauta associado com sucesso!");
-                    } else {
-                        System.out.println("Missão ou Astronauta não encontrado.");
-                    }
+                    assciarAstronautaAMissao();
                     break;
 
                 case 9:
-                    System.out.print("ID da Missão: ");
-                    int idAtualizar = scanner.nextInt();
-                    scanner.nextLine();
-
-                    System.out.print("Novo Status: ");
-                    String novoStatus = scanner.nextLine();
-
-                    Missao missaoAtualizar = buscarMissao(idAtualizar);
-
-                    if (missaoAtualizar != null) {
-                        missaoAtualizar.atualizarStatus(novoStatus);
-                        System.out.println("Status atualizado com sucesso!");
-                    } else {
-                        System.out.println("Missão não encontrada.");
-                    }
+                    atualizarStatusDaMissao();
                     break;
             }
 
         } while (opcao != 0);
 
         scanner.close();
+    }
+
+    private void atualizarStatusDaMissao() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("ID da Missão: ");
+        int idAtualizar = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Novo Status: ");
+        String novoStatus = scanner.nextLine();
+
+        Missao missaoAtualizar = buscarMissao(idAtualizar);
+
+        if (missaoAtualizar != null) {
+            missaoAtualizar.atualizarStatus(novoStatus);
+            System.out.println("Status atualizado com sucesso!");
+        } else {
+            System.out.println("Missão não encontrada.");
+        }
+
+    }
+
+    private void assciarAstronautaAMissao() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("ID da Missão: ");
+        int idM = scanner.nextInt();
+
+        System.out.print("ID do Astronauta: ");
+        int idA = scanner.nextInt();
+        scanner.nextLine();
+
+        Missao m = buscarMissao(idM);
+        Astronauta a = buscarAstronauta(idA);
+
+        if (m != null && a != null) {
+            m.associarAstronauta(a);
+            System.out.println("Astronauta associado com sucesso!");
+        } else {
+            System.out.println("Missão ou Astronauta não encontrado.");
+        }
+
+    }
+
+    private void associarNaveAMissao() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("ID da Missão: ");
+        int idMissao = scanner.nextInt();
+
+        System.out.print("ID da Nave: ");
+        int idNave = scanner.nextInt();
+        scanner.nextLine();
+
+        Missao missao = buscarMissao(idMissao);
+        NaveEspacial nave = buscarNave(idNave);
+
+        if (missao != null && nave != null) {
+            missao.associarNave(nave);
+            System.out.println("Nave associada com sucesso!");
+        } else {
+            System.out.println("Missão ou Nave não encontrada.");
+        }
+
+    }
+
+    private void adicionarAstronauta() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Nome do Astronauta: ");
+        String nomeAstronauta = scanner.nextLine();
+
+        System.out.print("Especialidade: ");
+        String especialidade = scanner.nextLine();
+
+        astronautas.add(new Astronauta(nomeAstronauta, especialidade));
+
+        System.out.println("Astronauta " + nomeAstronauta + " adicionado com sucesso!");
+
+    }
+
+    private void adicionarNaveEspacial() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Nome da Nave: ");
+        String nomeNave = scanner.nextLine();
+
+        System.out.print("Tipo da Nave: ");
+        String tipo = scanner.nextLine();
+
+        System.out.print("Capacidade: ");
+        int capacidade = scanner.nextInt();
+        scanner.nextLine();
+
+        naves.add(new NaveEspacial(nomeNave, tipo, capacidade));
+
+        System.out.println("Nave " + nomeNave + " adicionada com sucesso!");
+
+    }
+
+    private void adicionarMissao() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Nome da Missão: ");
+        String nomeMissao = scanner.nextLine();
+
+        System.out.print("Objetivo da Missão: ");
+        String objetivoMissao = scanner.nextLine();
+
+        System.out.print("Data de Lançamento: ");
+        String data = scanner.nextLine();
+
+        System.out.print("Status: ");
+        String status = scanner.nextLine();
+
+        missoes.add(new Missao(nomeMissao, objetivoMissao, data, status));
+
+        System.out.println("Missão " + nomeMissao + " adicionado com sucesso!");
+
     }
 }

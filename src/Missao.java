@@ -1,11 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Missao {
+public class Missao extends EntidadeIdentificavel {
 
     private static int contadorId = 1;
 
-    private int id;
     private String nome;
     private String objetivo;
     private String dataLancamento;
@@ -18,7 +17,7 @@ public class Missao {
     public Missao(String nome, String objetivo,
                   String dataLancamento, String status) {
 
-        this.id = contadorId++;
+        super(contadorId++);
         this.nome = nome;
         this.objetivo = objetivo;
         this.dataLancamento = dataLancamento;
@@ -27,7 +26,7 @@ public class Missao {
     }
 
     public int getId() {
-        return id;
+        return super.getId();
     }
 
     public void associarNave(NaveEspacial nave) {
@@ -55,7 +54,7 @@ public class Missao {
         }
 
         return "---DADOS DA MISSÃO---" +
-                "\nID: " + id +
+                "\nID: " + super.getId() +
                 "\nNome: " + nome +
                 "\nObjetivo: " + objetivo +
                 "\nData: " + dataLancamento +

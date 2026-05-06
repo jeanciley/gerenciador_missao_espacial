@@ -1,25 +1,20 @@
-public class NaveEspacial {
+public class NaveEspacial extends EntidadeIdentificavel {
 
     private static int contadorId = 1;
 
-    private int id;
     private String nome;
     private String tipo;
     private int capacidade;
 
     public NaveEspacial(String nome, String tipo, int capacidade) {
-        this.id = contadorId++;
+        super(contadorId++);
         this.nome = nome;
         this.tipo = tipo;
         this.capacidade = capacidade;
     }
 
-    public int getCapacidade() {
-        return capacidade;
-    }
-
     public int getId() {
-        return id;
+        return super.getId();
     }
 
     public String getNome() {
@@ -29,7 +24,7 @@ public class NaveEspacial {
     @Override
     public String toString() {
         return "---NAVE---" +
-                "\nID: " + id +
+                "\nID: " + super.getId() +
                 "\nNome: " + nome +
                 "\nTipo: " + tipo +
                 "\nCapacidade: " + capacidade;

@@ -1,19 +1,18 @@
-public class Astronauta {
+public class Astronauta extends EntidadeIdentificavel {
 
     private static int contadorId = 1;
 
-    private int id;
     private String nome;
     private String especialidade;
 
     public Astronauta(String nome, String especialidade) {
-        this.id = contadorId++;
+        super(contadorId++);
         this.nome = nome;
         this.especialidade = especialidade;
     }
 
     public int getId() {
-        return id;
+        return super.getId();
     }
 
     public String getNome() {
@@ -23,8 +22,9 @@ public class Astronauta {
     @Override
     public String toString() {
         return "---ASTRONAUTA---" +
-                "\nID: " + id +
+                "\nID: " + super.getId() +
                 "\nNome: " + nome +
                 "\nEspecialidade: " + especialidade;
     }
+
 }
