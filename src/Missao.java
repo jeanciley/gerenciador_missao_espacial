@@ -9,7 +9,6 @@ public class Missao extends EntidadeIdentificavel {
     private String objetivo;
     private String dataLancamento;
     private String status;
-
     private NaveEspacial nave;
     private List<Astronauta> astronautas;
 
